@@ -151,3 +151,12 @@ Resources:
 #       Type: String
 #       Value:
 #         Fn::GetAtt: [AmazonLinux2WithLatestSSMAgent, ImageId]
+
+  AmazonLinux2ImagePipeline:
+    Type: AWS::ImageBuilder::ImagePipeline
+    Properties:
+      Name: hello
+      InfrastructureConfigurationArn: Ref: AmazonLinux2ImageInfrastructureConfiguration
+      Schedule:
+        PipelineExecutionStartCondition: EXPRESSION_MATCH_ONLY
+        ScheduleExpression: "0 8 1 * ? *" # Run at 8:00 AM (UTC) on the first day of every month
